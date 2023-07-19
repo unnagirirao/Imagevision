@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: chat_gpt
+  name: chat_gpt
+  labels:
+    app: chat_gpt
+spec:
+  selector:
+    matchLabels:
+      app: chat_gpt
+  template:
+    metadata:
+      labels:
+        app: chat_gpt
+        name: chat_gpt
+    spec:
+      containers:
+        - name: chat_gpt
+          image: unnagirirao/Imagevision/chat_gpt
+          imagePullPolicy: Always
+        
+          env:
+            - name: SERVICE_NAME
+              value: "go-app"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "localhost:4317"
+            - name: INSECURE_MODE
+              value: "true"
+        
+          ports:
+        
+        
+          - containerPort: 7895
+            name: http
+        
+        
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+        

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: chat_gpt
+  labels:
+    app: chat_gpt
+  name: chat_gpt
+spec:
+  ports:
+  
+    - protocol: TCP
+      port: 7895
+      targetPort: 7895
+   
+   
+  selector:
+    app: chat_gpt
+  type: ClusterIP
